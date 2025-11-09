@@ -3,18 +3,18 @@ import pandas as pd
 import numpy as np
 import os
 
-class TemperaturePredictor:
+class WeatherSummaryPredictor:
     def __init__(self, model_path=None):
         if model_path is None:
             # Get the absolute path to the models directory
             current_dir = os.path.dirname(os.path.abspath(__file__))
             project_root = os.path.dirname(os.path.dirname(current_dir))
-            model_path = os.path.join(project_root, 'models', 'temperature_forecast_model.joblib')
+            model_path = os.path.join(project_root, 'models', 'summary_forecast_model.joblib')
         self.model = joblib.load(model_path)
 
     def predict(self, input_data):
         """
-        Predict temperature based on input data.
+        Predict weather summary based on input data.
         
         Args:
             input_data (dict): Dictionary with keys matching the features.
@@ -31,12 +31,11 @@ class TemperaturePredictor:
                 'Pressure (millibars)': 1014.0,
                 'Hour': 14,  # 2 PM
                 'Month': 11, # November
-                'Summary': 'Overcast',
                 'Precip Type': 'rain'
             }
 
         Returns:
-            float: Predicted temperature for the next hour
+            str: Predicted weather summary for the next hour
         """
         # Create DataFrame from input data
         new_df = pd.DataFrame([input_data])
